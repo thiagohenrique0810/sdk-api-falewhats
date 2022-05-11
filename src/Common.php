@@ -2,20 +2,20 @@
 
 include_once('Config.php');
 
-class AbstractStc {
+class Common {
 
 	/** CONFIG **/
 	private $url;
 	private $key;
 
-	public function __construct($options) 
+	public function __construct($key) 
 	{
 		//url api
-		$this->setUri('https://api.whatsapp.0001.falewhats.com.br/');
+		$this->setUrl('https://api.whatsapp.0001.falewhats.com.br/rest/');
 
 		//verificando se foi enviada a chave de integracao
-		if(!empty($options['key'])) {
-			$this->key = $options['key'];
+		if(!empty($key)) {
+			$this->key = $key;
 		}else {
 			die('missing integration key');
 		}
@@ -26,24 +26,20 @@ class AbstractStc {
 		//die($this->key);
 		if(!empty($data)) {
 	        return sendRequest([
-	        	'key' => $this->getKey(),
-	        	'urlRequest' => $this->getUrl(),
-	        	'uriRequest' => $uriRequest,
+	        	'url' => $uriRequest,
 	        	'method' => 'GET',
 	        	'request' => $data
 	        ]);
     	}
 	}
 
-	public function senPost($data, $uriRequest) 
+	public function sendPost($data, $uriRequest) 
 	{
 		//die($this->key);
 		if(!empty($data)) {
 	        return sendRequest([
-	        	'key' => $this->getKey(),
-	        	'urlRequest' => $this->getUrl(),
-	        	'uriRequest' => $uriRequest,
-	        	'method' => 'GET',
+	        	'url' => $uriRequest,
+	        	'method' => 'POST',
 	        	'request' => $data
 	        ]);
     	}
